@@ -5,8 +5,19 @@ import { todos, visibilytyFilter } from "./Todos";
 
 
 const todoApp = combineReducers({ todos, visibilytyFilter });
+const store = createStore(todoApp);
 
-const combineReducers = (reducers) => {
+const render = () => {
+    ReactDOM.render(
+        <TodoApp />,
+        document.getElementById('root')
+    );
+}
+
+store.subscribe(render);
+render();
+
+/*const combineReducers = (reducers) => {
     return (state = {}, action) => {
         return Object.keys(reducers).reduce(
             (nextState, key) => {
@@ -19,4 +30,4 @@ const combineReducers = (reducers) => {
             {}
         )
     };
-};
+};*/
