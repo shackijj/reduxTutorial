@@ -6,19 +6,17 @@ import { todos, visibilytyFilter } from "./Todos";
 
 const todoApp = combineReducers({ todos, visibilytyFilter });
 
-
-
-/*
-const todoApp = (state = {}, action) => {
-    return {
-        todos: todos(
-            state.todos,
-            action
-        ),
-        visibilytyFilter: visibilytyFilter(
-            state.visibilytyFilter,
-            action
+const combineReducers = (reducers) => {
+    return (state = {}, action) => {
+        return Object.keys(reducers).reduce(
+            (nextState, key) => {
+                nextState[key] = reducers[key](
+                    state[key],
+                    action
+                );
+                return nextState;
+            },
+            {}
         )
     };
 };
-*/
