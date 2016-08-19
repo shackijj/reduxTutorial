@@ -31,24 +31,11 @@ export const todos = (store = [], action)  => {
     }
 }
 
-const visibilytyFilter = (state = 'SHOW_ALL', action) => {
+export const visibilytyFilter = (state = 'SHOW_ALL', action) => {
     switch(action.type) {
         case 'SET_VISIBILITY_FILTER':
             return action.filter;
         default:
             return state;
     }
-};
-
-export const todoApp = (state = {}, action) => {
-    return {
-        todos: todos(
-            state.todos,
-            action
-        ),
-        visibilytyFilter: visibilytyFilter(
-            state.visibilytyFilter,
-            action
-        )
-    };
 };

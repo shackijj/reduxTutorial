@@ -24,6 +24,11 @@ function bundle() {
         .pipe(gulp.dest("dist"));
 }
 
+function updateBrowser() {
+    console.log("Update browser");
+    sync.reload();
+}
+
 gulp.task('mocha', function() {
     return gulp.src(['tests/*.js'], { read: false })
         .pipe(mocha({ reporter: 'list' }))
@@ -43,7 +48,7 @@ gulp.task('lint', () => {
 
 gulp.task('default', ['transpile']);
 
-gulp.task('js-watch', ['transpile'], sync.reload);
+gulp.task('js-watch', ['transpile'], () => updateBrowser());
 
 gulp.task('serve', ['transpile'], () => sync.init({
     server: 'dist',
@@ -52,6 +57,6 @@ gulp.task('serve', ['transpile'], () => sync.init({
 }));
 
 gulp.task('watch', ['serve'], () => {
-    gulp.watch('src/**/*', ['js-watch']);
-    gulp.watch('tests/**/*', ['js-watch']);
+    gulp.watch('src/**/*', ['js-watch'])
+    gulp.watch('tests/**/*', ['js-watch'])
 });                          
