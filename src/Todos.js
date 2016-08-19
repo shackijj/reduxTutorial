@@ -1,20 +1,54 @@
-export const todos = (store = [], action)  => {
+const todo = (state, action) => {
     switch(action.type) {
         case 'ADD_TODO':
-            return [...store, {
+            return {
                 id: action.id,
                 text: action.text,
                 completed: false
-            }];
+            };
         case 'TOGGLE_TODO':
-            return store.map(todo => {
-                if (todo.id !== action.id) {
-                    return todo
-                }
+            if (state.id !== action.id) {
+                return state
+            }
 
-                return Object.assign({}, todo, {
-                    completed: !todo.completed
-                });
-            })
+            return Object.assign({}, state, {
+                completed: !state.completed
+            });
+        default: 
+            return state;
+    }  
+}
+
+export const todos = (store = [], action)  => {
+    switch(action.type) {
+        case 'ADD_TODO':
+            return [...store, todo(undefined, action)];
+
+        case 'TOGGLE_TODO':
+            return store.map(t => todo(t, action));
+        default: 
+            return store;
     }
 }
+
+const visibilytyFilter = (state = 'SHOW_ALL', action) => {
+    switch(action.type) {
+        case 'SET_VISIBILITY_FILTER':
+            return action.filter;
+        default:
+            return state;
+    }
+};
+
+export const todoApp = (state = {}, action) => {
+    return {
+        todos: todos(
+            state.todos,
+            action
+        ),
+        visibilytyFilter: visibilytyFilter(
+            state.visibilytyFilter,
+            action
+        )
+    };
+};
