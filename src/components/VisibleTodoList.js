@@ -17,6 +17,21 @@ class VisibleTodoList extends React.Component {
         this.unsubscribe();
     }
 
+    _getVisibleTodos(todos, filter) {
+        switch(filter) {
+            case 'SHOW_ALL':
+                return todos;
+            case 'SHOW_COMPLETED':
+                return todos.filter(
+                    t => t.completed
+                );
+            case 'SHOW_ACTIVE':
+                return todos.filter(
+                    t => !t.completed
+                );
+        }
+    }
+            
     render() {
         const props = this.props;
         const { store } = this.context;
@@ -25,7 +40,7 @@ class VisibleTodoList extends React.Component {
         return (
             <TodoList
                 todos={
-                    getVisibleTodos(
+                    this._getVisibleTodos(
                         state.todos,
                         state.visibilityFilter
                     )

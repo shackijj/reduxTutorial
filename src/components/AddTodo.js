@@ -9,11 +9,12 @@ const AddTodo = (props, { store }) => {
                 input = node 
             }}/>
             <button onClick={
-                store.dispatch({
-                    type: 'ADD_TODO',
-                    text: "FUCK_IT",
-                    id: Date.now()
-                })
+                () => { store.dispatch({
+                            type: 'ADD_TODO',
+                            text: input.value,
+                            id: Date.now()
+                        })
+                }
             }>
                 Add todo
             </button>

@@ -2,31 +2,13 @@ import ReactDOM from "react-dom";
 import React from "react";
 
 import { createStore, combineReducers } from "redux";
-import { todos, visibilytyFilter } from "./Todos";
+import { todos, visibilityFilter } from "./Todos";
 
 import VisibleTodoList from "./components/VisibleTodoList";
 import AddTodo from './components/AddTodo';
 import Footer from './components/Footer';
 
-const todoApp = combineReducers({ todos, visibilytyFilter });
-
-const getVisibleTodos = (
-    todos,
-    filter
-) => {
-    switch(filter) {
-        case 'SHOW_ALL':
-            return todos;
-        case 'SHOW_COMPLETED':
-            return todos.filter(
-                t => t.completed
-            );
-        case 'SHOW_ACTIVE':
-            return todos.filter(
-                t => !t.completed
-            );
-    }
-};
+const todoApp = combineReducers({ todos, visibilityFilter });
 
 class Provider extends React.Component {
     getChildContext() {

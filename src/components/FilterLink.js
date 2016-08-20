@@ -6,7 +6,7 @@ export default class FilterLink extends React.Component {
     componentDidMount() {
         const { store } = this.context;
 
-       this.unsubscribe = store.subscribe(() =>
+        this.unsubscribe = store.subscribe(() =>
             this.forceUpdate()
         );
     }
@@ -24,9 +24,10 @@ export default class FilterLink extends React.Component {
             <Link
                 active={props.filter === state.visibilityFilter}
                 onClick={() => store.dispatch({
-                    type: 'SET_VISIBILITY_FILTER',
-                    filter: props.filter
-                })}
+                        type: 'SET_VISIBILITY_FILTER',
+                        filter: props.filter
+                    })
+                }
             >
                 {props.children}
             </Link>
