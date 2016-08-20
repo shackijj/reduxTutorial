@@ -1,8 +1,9 @@
-import * as ReactDOM from "react-dom";
-import * as React from "react";
+import ReactDOM from "react-dom";
+import React from "react";
 import { createStore, combineReducers } from "redux";
 import { todos, visibilytyFilter } from "./Todos";
-
+import TodoList from "./components/TodoList";
+import AddTodo from './components/AddTodo';
 
 const todoApp = combineReducers({ todos, visibilytyFilter });
 const store = createStore(todoApp);
@@ -35,31 +36,25 @@ class TodoApp extends React.Component {
 
         return (
             <div>
-               <input ref={node => {
-                    this.input = node 
-                }}/>
-                <button onClick={
-                    () => store.dispatch({
-                        type: 'ADD_TODO',
-                        text: this.input.value,
-                        id: Date.now()
-                    })
-                }>Add todo </button>
-                <ul>
-                    {visibleTodos.map(todo =>
-                        <li key={todo.id}
-                            onClick={() => store.dispatch({
-                                type: 'TOGGLE_TODO',
-                                id: todo.id
-                            })}
-                            style={{
-                                textDecoration: todo.completed ?
-                                    'line-through' : 'none'
-                            }}>
-                            {todo.text}
-                        </li>
-                    )}
-                </ul>
+                <AddTodo 
+                    onAddTodoClick={text => {
+                            store.dispatch({
+                                type: 'ADD_TODO',
+                                text: text,
+                                id: Date.now()
+                            })
+                        }
+                    }
+                />
+                <TodoList
+                    todos={visibleTodos}
+                    onTodoClick={ id =>
+                         store.dispatch({
+                            type: 'TOGGLE_TODO',
+                            id
+                        })
+                    }
+                />
                 <p>
                     Show:
                     {' '}
