@@ -5,7 +5,6 @@ import { createStore, combineReducers } from "redux";
 import { Provider, connect } from 'react-redux';
 
 import { todos, visibilityFilter } from "./Todos";
-// import VisibleTodoList from "./components/VisibleTodoList";
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import Footer from './components/Footer';
@@ -13,13 +12,6 @@ import Footer from './components/Footer';
 
 const todoApp = combineReducers({ todos, visibilityFilter });
 
-const TodoApp = () => ( 
-    <div>
-        <AddTodo/>
-        <VisibleTodoList/>
-        <Footer/> 
-    </div>
-);
 
 const getVisibleTodos = (todos, filter) => {
     switch(filter) {
@@ -36,7 +28,7 @@ const getVisibleTodos = (todos, filter) => {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToTodoListProps = (state) => {
     return {
         todos: getVisibleTodos(
             state.todos,
@@ -45,7 +37,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToTodoListProps = (dispatch) => {
     return {
         onTodoClick: (id) => {
             dispatch({
@@ -57,9 +49,21 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const VisibleTodoList = connect(
-     mapStateToProps,
-     mapDispatchToProps
+    mapStateToTodoListProps,
+    mapDispatchToTodoListProps
 )(TodoList);
+
+AddTodo = connect()(AddTodo);
+
+
+const TodoApp = () => ( 
+    <div>
+        <ConnectedAddTodo/>
+        <VisibleTodoList/>
+        <Footer/> 
+    </div>
+);
+
 
 const render = () => {
     ReactDOM.render(

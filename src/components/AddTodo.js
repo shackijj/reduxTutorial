@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddTodo = (props, { store }) => {
+const AddTodo = ({ dispatch }) => {
     let input;
 
     return ( 
@@ -9,7 +9,7 @@ const AddTodo = (props, { store }) => {
                 input = node 
             }}/>
             <button onClick={
-                () => { store.dispatch({
+                () => { dispatch({
                             type: 'ADD_TODO',
                             text: input.value,
                             id: Date.now()
@@ -20,9 +20,6 @@ const AddTodo = (props, { store }) => {
             </button>
         </div>
     );
-};
-AddTodo.contextTypes = {
-    store: React.PropTypes.object
 };
 
 export default AddTodo;
