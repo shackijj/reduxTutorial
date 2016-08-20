@@ -1,5 +1,8 @@
 import React from 'react';
 
+AddTodo = connect()(AddTodo);
+
+// Equiuivalent AddTodo = connect(null, null)(AddTodo); 
 const AddTodo = ({ dispatch }) => {
     let input;
 

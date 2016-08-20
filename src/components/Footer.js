@@ -1,4 +1,4 @@
-import FilterLink from './FilterLink';
+// import FilterLink from './FilterLink';
 import React from "react";
 
 const Footer = () => (
