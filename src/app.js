@@ -30,6 +30,9 @@ class TodoApp extends React.Component {
             this.props.todos,
             this.props.visibilytyFilter
         );
+
+        const currentFilter = this.props.visibilytyFilter;
+
         return (
             <div>
                <input ref={node => {
@@ -60,11 +63,20 @@ class TodoApp extends React.Component {
                 <p>
                     Show:
                     {' '}
-                    <FilterLink filter='SHOW_ALL'>All</FilterLink>
+                    <FilterLink 
+                        filter='SHOW_ALL'
+                        currentFilter={currentFilter}> 
+                        All
+                    </FilterLink>
                     {' '}
-                    <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
+                    <FilterLink filter='SHOW_ACTIVE'
+                                currentFilter={currentFilter}>
+                    Active</FilterLink>
                     {' '}
-                    <FilterLink filter='SHOW_COMPLETED'>Completed</FilterLink>
+                    <FilterLink filter='SHOW_COMPLETED'
+                                currentFilter={currentFilter}>
+                        Completed
+                    </FilterLink>
                 </p>
             </div>
         );
@@ -103,18 +115,3 @@ const render = () => {
 
 store.subscribe(render);
 render();
-
-/*const combineReducers = (reducers) => {
-    return (state = {}, action) => {
-        return Object.keys(reducers).reduce(
-            (nextState, key) => {
-                nextState[key] = reducers[key](
-                    state[key],
-                    action
-                );
-                return nextState;
-            },
-            {}
-        )
-    };
-};*/
