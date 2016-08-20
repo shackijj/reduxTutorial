@@ -1,19 +1,27 @@
 import React from 'react';
 
-export default class AddTodo extends React.Component {
-    render() {
+const AddTodo = (props, { store }) => {
+    let input;
 
-        const { onAddTodoClick } = this.props;
+    return ( 
+        <div>
+            <input ref={node => {
+                input = node 
+            }}/>
+            <button onClick={
+                store.dispatch({
+                    type: 'ADD_TODO',
+                    text: "FUCK_IT",
+                    id: Date.now()
+                })
+            }>
+                Add todo
+            </button>
+        </div>
+    );
+};
+AddTodo.contextTypes = {
+    store: React.PropTypes.object
+};
 
-        return (
-            <div>
-                <input ref={node => {
-                    this.input = node 
-                }}/>
-                <button onClick={
-                    () => onAddTodoClick(this.input.value)
-                }>Add todo </button>
-            </div>
-        );
-    }
-}
+export default AddTodo;
