@@ -1,8 +1,10 @@
 import React from 'react';
+import { addTodo } from '../Actions';
 
 AddTodo = connect()(AddTodo);
 
-// Equiuivalent AddTodo = connect(null, null)(AddTodo); 
+// Equiuivalent AddTodo = connect(null, null)(AddTodo);
+
 const AddTodo = ({ dispatch }) => {
     let input;
 
@@ -12,11 +14,7 @@ const AddTodo = ({ dispatch }) => {
                 input = node 
             }}/>
             <button onClick={
-                () => { dispatch({
-                            type: 'ADD_TODO',
-                            text: input.value,
-                            id: Date.now()
-                        })
+                () => { dispatch(addTodo(input.value))
                 }
             }>
                 Add todo
